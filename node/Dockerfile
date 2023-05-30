@@ -1,15 +1,10 @@
-FROM node:alpine
-
-WORKDIR /opt/app
-RUN chown -R node:node /opt/app
-COPY --chown=node:node ./node/package*.json /opt/app/
-
+FROM node:lts-alpine
+ENV NODE_ENV=production
+WORKDIR /usr/src/app
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+RUN npm install --production --silent && mv node_modules ../
+COPY . .
+EXPOSE 3690
+RUN chown -R node /usr/src/app
 USER node
-RUN npm install
-
-COPY --chown=node:node ./node/index.js ./
-COPY --chown=node:node ./.env ./
-
-EXPOSE 8000
-ENTRYPOINT ["node"]
-CMD ["index.js"]
+CMD ["npm", "start"]
