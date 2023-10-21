@@ -49,3 +49,10 @@ docker-compose.local*.yml
 *.iml
 .env
 .idea
+<<<<<<< Updated upstream
+=======
+
+#vscode
+.vscode
+.fake
+>>>>>>> Stashed changes
